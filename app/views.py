@@ -8,7 +8,12 @@ from .models import *
 
 
 def index(request):
-    return HttpResponse('Working Fine till now...!')
+     return render(request, "index.html", {
+        "posts": [],
+        "suggestions": [],
+        "page": "all_posts",
+        'profile': False
+    })
 
 
 def login_view(request):
