@@ -11,7 +11,7 @@
         <div>
             <center>
                 {% comment %} <img src="{% static 'network/Images/logo_icon.png' %}" height="45em" style="margin-bottom: 2vh;"> {% endcomment %}
-                <h3>Sign up for Network</h2><br>
+                <h3>Sign up for SocializeME</h2><br>
             </center>
         </div>
     
@@ -68,11 +68,15 @@
     
         <div>
             <center>
-                Already have an account?&nbsp;&nbsp;<a href="{% url 'login' %}">Log in</a>
+                Already have an account?&nbsp;&nbsp;<a href="{% url 'login' %}" onclick="replacePage(event, '{% url 'login' %}')">Log in</a>
             </center>
         </div><br><br>
     </div>
     <script>
+        function replacePage(event, url) {
+            event.preventDefault();  
+            location.replace(url);   
+        }
         document.addEventListener("DOMContentLoaded", () => {
             let check = [false,false,false,false,false,false];
             document.querySelectorAll(".inp").forEach(input => {

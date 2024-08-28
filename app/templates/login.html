@@ -31,13 +31,18 @@
     
         <div>
             <center>
-                Don't have an account?&nbsp;&nbsp;<a href="{% url "register" %}">Sign Up</a>
+                Don't have an account?&nbsp;&nbsp;<a href="{% url 'register' %}" onclick="replacePage(event, '{% url 'register' %}')">Sign Up</a>
             </center>
+            
         </div>
     </div>
 
 
     <script>
+        function replacePage(event, url) {
+            event.preventDefault();  
+            location.replace(url);   
+        }
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".inp").forEach(input => {
                 input.addEventListener('input', () => {

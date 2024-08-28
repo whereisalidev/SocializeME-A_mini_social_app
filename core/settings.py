@@ -123,3 +123,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+#-----------------------------------------------------------------------------------------#
+
+
+
+#MUST ADD THIS::::::
+AUTH_USER_MODEL = 'app.User'  # Replace 'app' with your app name
+
