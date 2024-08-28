@@ -10,14 +10,14 @@ class User(AbstractUser):
     # Add related_name attributes to avoid conflicts with default User model fields
     groups = models.ManyToManyField(
         'auth.Group',
-        related_name='custom_user_set',  # Change to avoid conflict
+        related_name='custom_user_set',  
         blank=True,
         help_text='The groups this user belongs to.',
         verbose_name='groups'
     )
     user_permissions = models.ManyToManyField(
         'auth.Permission',
-        related_name='custom_user_permissions',  # Change to avoid conflict
+        related_name='custom_user_permissions', 
         blank=True,
         help_text='Specific permissions for this user.',
         verbose_name='user permissions'
