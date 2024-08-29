@@ -3,14 +3,31 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.urls import reverse
 from django.db import IntegrityError
+from django.core.paginator import Paginator
 from .models import *
 
 
 
 def index(request):
-     return render(request, "index.html", {
-        "posts": [],
-        "suggestions": [],
+    all_posts = Post.objects.all().order_by('-date_created')
+    paginator = Paginator(all_posts, 10)
+    page_number = request.GET.get('page')
+    if page_number == None:
+        page_number = 1
+    posts = paginator.get_page(page_number)
+    following = []
+    suggestions = []
+
+    if request.user.is_authenticated:
+        followings = Follower_Following.objects.filter(following=request.user).values_list('follower', flat=True)
+        # suggestions = User.objects.exclude(pk__in=followings).exclude(username=request.user.username).order_by("?")[:6]
+
+    
+
+
+    return render(request, "index.html", {
+        "posts": posts,
+        "suggestions": suggestions,
         "page": "all_posts",
         'profile': False
     })
@@ -54,6 +71,7 @@ def register(request):
             user.profile_pic = profile
             user.cover_pic = cover
             user.save()
+            Follower_Following.objects.create(user=user)
         except IntegrityError:
             return render(request, "register.html", {"message": "Username already taken!"})
         
