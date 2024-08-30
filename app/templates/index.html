@@ -68,13 +68,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {% if post.content_text is not None %}
+                                        {% if post.post_content is not None %}
                                             <div class="post-content">
-                                                {{post.content_text | linebreaksbr}}
+                                                {{post.post_content | linebreaksbr}}
                                             </div>
                                         {% endif %}
-                                        {% if post.content_image %}
-                                            <div class="post-image" style="background-image: url(/media/{{post.content_image}});"></div>
+                                        {% if post.post_image %}
+                                            <div class="post-image" style="background-image: url(/media/{{post.post_image}});"></div>
                                         {% else %}
                                             <div class="post-image" style="display: none;"></div>
                                         {% endif %}

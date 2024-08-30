@@ -29,7 +29,7 @@
                         <div class="small-profilepic" style="background-image: url(/media/{{user.profile_pic}});"></div>
                     </div>
                     <div class="form-area">
-                        <form action="#" method="POST" class="newpost" enctype="multipart/form-data">
+                        <form action="{% url "createpost" %}" method="POST" class="newpost" enctype="multipart/form-data">
                             {% csrf_token %}
                             <textarea name="text" autofocus placeholder="What's happening?" rows="5" id="post-text"></textarea>
                             <input type="hidden" id="img-change" value="false"></input>

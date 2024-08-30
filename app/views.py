@@ -20,7 +20,7 @@ def index(request):
 
     if request.user.is_authenticated:
         followings = Follower_Following.objects.filter(following=request.user).values_list('follower', flat=True)
-        # suggestions = User.objects.exclude(pk__in=followings).exclude(username=request.user.username).order_by("?")[:6]
+        suggestions = User.objects.exclude(pk__in=followings).exclude(username=request.user.username).order_by("?")[:6]
 
     
 
@@ -71,7 +71,7 @@ def register(request):
             user.profile_pic = profile
             user.cover_pic = cover
             user.save()
-            Follower_Following.objects.create(user=user)
+            Follower_Following.objects.create(follower=user)
         except IntegrityError:
             return render(request, "register.html", {"message": "Username already taken!"})
         
@@ -87,3 +87,49 @@ def register(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+
+def create_post(request):
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        pic = request.FILES.get('picture')
+        try:
+            post = Post.objects.create(creater=request.user, post_content=text, post_image=pic)
+            return HttpResponseRedirect(reverse('index'))
+        except Exception as e:
+            return HttpResponse(e)
+    else:
+        return HttpResponse("Method must be 'POST'")
+    
+
+def profile(request, username):
+    user = User.objects.get(username=username)
+    all_posts = Post.objects.filter(creater=user).order_by('-date_created')
+    paginator = Paginator(all_posts, 10)
+    page_number = request.GET.get('page')
+    if page_number == None:
+        page_number = 1
+    posts = paginator.get_page(page_number)
+    followings = []
+    suggestions = []
+    follower = False
+    if request.user.is_authenticated:
+        followings = Follower_Following.objects.filter(following=request.user).values_list('follower', flat=True)
+        suggestions = User.objects.exclude(pk__in=followings).exclude(username=request.user.username).order_by("?")[:6]
+
+        if request.user in Follower_Following.objects.get(follower=user).follower.all():
+            follower = True
+    
+    follower_count = Follower_Following.objects.get(follower=user).follower.all().count()
+    following_count = Follower_Following.objects.filter(following_count=user).count()
+    return render(request, 'profile.html', {
+        "username": user,
+        "posts": posts,
+        "posts_count": all_posts.count(),
+        "suggestions": suggestions,
+        "page": "profile",
+        "is_follower": follower,
+        "follower_count": follower_count,
+        "following_count": following_count
+    })
