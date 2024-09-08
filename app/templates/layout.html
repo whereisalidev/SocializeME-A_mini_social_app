@@ -5,7 +5,6 @@
         <title>{% block title %}SocializeME{% endblock %}</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'styles.css' %}" rel="stylesheet">
-        {% comment %} <link rel="shortcut icon" href="{% static 'network/Images/favicon.ico' %}"> {% endcomment %}
         <script type="text/javascript" src="{% static 'layout.js' %}"></script>
         {% block head %}
         {% endblock %}
@@ -16,7 +15,7 @@
             <div class="small-popup">
                 <div style="margin-bottom: 10px; font-size: 1.1em;"><strong>Delete Post?</strong></div>
                 <div class="grey" style="font-size: .85em; margin-bottom: 15px;">
-                    This can’t be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from Network search results.
+                    This can’t be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from SocializeME search results.
                 </div>
                 <div style="padding: 0px 5%;">
                     <button class="btn btn-light float-left" onclick="remove_popup()">Cancel</button>
@@ -39,7 +38,6 @@
                                         <g><path d="M13.414 12l5.793-5.793c.39-.39.39-1.023 0-1.414s-1.023-.39-1.414 0L12 10.586 6.207 4.793c-.39-.39-1.023-.39-1.414 0s-.39 1.023 0 1.414L10.586 12l-5.793 5.793c-.39.39-.39 1.023 0 1.414.195.195.45.293.707.293s.512-.098.707-.293L12 13.414l5.793 5.793c.195.195.45.293.707.293s.512-.098.707-.293c.39-.39.39-1.023 0-1.414L13.414 12z"></path></g>
                                     </svg>
                                 </button>
-                                <img src="{% static 'network/Images/spinner.gif' %}" id='spinner' height="70px">
                             </div>
                             <hr>
                             <div class="form-action-btns">
@@ -78,7 +76,7 @@
                     <div class="main_text-div">
                         <h2></h2>
                         <div class="grey">
-                            Join Network today to connect with people you know.
+                            Join SocializeME today to connect with people you know.
                         </div>
                     </div>
                     <div class="btn-div">
@@ -91,7 +89,7 @@
         <div class="body" data-page="{{page}}">
             <div class="sidenav">
                 <a href="{% url 'index' %}" class="navbar-brand">
-                    {% comment %} <img src="{% static 'network/Images/logo.png' %}" height="31px"> {% endcomment %}
+                    <h2 style="color: #28a745;"><b>SocializeME</b></h2>
                 </a>
                 <div style="height: 100%;">
                     <div>
@@ -111,7 +109,7 @@
                                 </li>
                                 {% if user.is_authenticated %}
                                     <li class="nav-item" id="following">
-                                        <a href="#" class="nav-link">
+                                        <a href="{% url "following" %}" class="nav-link">
                                             <div>
                                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-people" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002.002zM7.022 13h7.956a.274.274 0 0 0 .014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C13.688 10.629 12.718 10 11 10c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 0 0 .022.004zm7.973.056v-.002.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10c-1.668.02-2.615.64-3.16 1.276C1.163 11.97 1 12.739 1 13h3c0-1.045.323-2.086.92-3zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
@@ -121,7 +119,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item" id="saved">
-                                        <a href="#" class="nav-link">
+                                        <a href="{% url "saved" %}" class="nav-link">
                                             <div>
                                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-bookmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M8 12l5 3V3a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12l5-3zm-4 1.234l4-2.4 4 2.4V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10.234z"/>
@@ -131,7 +129,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item" id="profile">
-                                        <a href="#" class="nav-link">
+                                        <a href="{% url "profile" user.username %}" class="nav-link">
                                             <div>
                                                 <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-person" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -186,7 +184,7 @@
                     <div style="position: absolute; bottom: 10px;">
                         {% if user.is_authenticated %}    
                             <li class="nav-item sidenav-user">
-                                <a href="#" class="nav-link">
+                                <a href="{% url "profile" user.username %}" class="nav-link">
                                     <div class="user_account">
                                         <div class="small-profilepic" style="float: left; background-image: url(/media/{{user.profile_pic}})"></div>
                                         <div style="height: 2.7vw; margin: auto;">
@@ -233,12 +231,12 @@
                             {% for suggestion in suggestions %}
                                 <div class="suggestion-user">
                                     <div>
-                                        <a href="#">
+                                        <a href="{% url "profile" suggestion.username%}">
                                             <div class="small-profilepic" style="background-image: url(/media/{{suggestion.profile_pic}})"></div>
                                         </a>
                                     </div>
                                     <div class="user-details">
-                                        <a href="#">
+                                        <a href="{% url "profile" suggestion.username%}">
                                             <div id="user-name">
                                                 
                                                 <strong>
@@ -265,7 +263,7 @@
                         <div class="guest-box">
                             <center>
                                 <div class="guest-header">
-                                    <h5>New to Network?</h5>
+                                    <h5>New to SocializeME?</h5>
                                 </div>
                                 <div class="grey guest-content">
                                     Sign up now to get connected with people you know.

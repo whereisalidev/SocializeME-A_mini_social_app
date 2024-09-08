@@ -136,5 +136,7 @@ AUTH_USER_MODEL = 'app.User'  # Replace 'app' with your app name
 import os
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'network/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
